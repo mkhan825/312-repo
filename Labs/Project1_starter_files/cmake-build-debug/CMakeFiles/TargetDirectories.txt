@@ -1,0 +1,8 @@
+/home/masaadkhan/Documents/312/Labs/Project1_starter_files/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/masaadkhan/Documents/312/Labs/Project1_starter_files/cmake-build-debug/CMakeFiles/checkifin.dir
+/home/masaadkhan/Documents/312/Labs/Project1_starter_files/cmake-build-debug/CMakeFiles/extractwords.dir
+/home/masaadkhan/Documents/312/Labs/Project1_starter_files/cmake-build-debug/CMakeFiles/Project1.dir
+/home/masaadkhan/Documents/312/Labs/Project1_starter_files/cmake-build-debug/CMakeFiles/letter.dir
+/home/masaadkhan/Documents/312/Labs/Project1_starter_files/cmake-build-debug/CMakeFiles/Project1_best.dir
+/home/masaadkhan/Documents/312/Labs/Project1_starter_files/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/masaadkhan/Documents/312/Labs/Project1_starter_files/cmake-build-debug/CMakeFiles/string_compare.dir

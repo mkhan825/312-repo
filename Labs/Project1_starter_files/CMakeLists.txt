@@ -1,0 +1,6 @@
+add_executable(letter  letter.cpp) 
+add_executable(checkifin checkifin.c)
+add_executable(extractwords extractwords.c)
+add_executable(Project1 Project1.cpp)
+add_executable(Project1_best Project1_best.cpp)
+add_executable(string_compare string_compare.cpp)

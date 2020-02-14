@@ -1,0 +1,1 @@
+/usr/bin/cc -g  -rdynamic CMakeFiles/extractwords.dir/extractwords.c.o  -o extractwords 
