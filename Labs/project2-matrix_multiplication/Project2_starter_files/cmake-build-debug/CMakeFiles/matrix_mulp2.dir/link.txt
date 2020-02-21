@@ -1,0 +1,1 @@
+/usr/bin/cc -g  -rdynamic CMakeFiles/matrix_mulp2.dir/matrix_mulp2.c.o  -o matrix_mulp2 

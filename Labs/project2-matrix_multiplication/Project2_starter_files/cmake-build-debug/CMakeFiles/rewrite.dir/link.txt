@@ -1,0 +1,1 @@
+/usr/bin/cc -g  -rdynamic CMakeFiles/rewrite.dir/rewrite.c.o  -o rewrite 

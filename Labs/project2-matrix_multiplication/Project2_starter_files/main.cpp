@@ -198,6 +198,7 @@ int assertEqualMatrices(double a[], double b[], const uint32_t rows,
                 fprintf(stderr, "Sorry, matrices do not match, first difference at row "
                         "%d and col %d\n",
                         i, j);
+                printf("Wrong value : a = %f, b = %f", a[(i*cols) + j], b[(i*cols) + j]);
                 return false;
             }
             j += 1;
@@ -604,41 +605,15 @@ void testStage3(void) {
 }
 
 int main(int argc, char **argv) {
-    int i;
-    
-    /** Run only a specific test */
-    for (i = 1; i < argc; i++) {
-        if (strcmp("testMultiplyMatrixA", argv[i]) == 0) {
             testMultiplyMatrixA();
-        } else if (strcmp("testMultiplyMatrixB", argv[i]) == 0) {
             testMultiplyMatrixB();
-        } else if (strcmp("testMultiplyMatrixC", argv[i]) == 0) {
             testMultiplyMatrixC();
-        } else if (strcmp("testMultiplyMatrixD", argv[i]) == 0) {
             testMultiplyMatrixD();
-        } else if (strcmp("testTransposeA", argv[i]) == 0) {
             testTransposeA();
-        } else if (strcmp("testTransposeB", argv[i]) == 0) {
             testTransposeB();
-        } else if (strcmp("testTransposeC", argv[i]) == 0) {
             testTransposeC();
-        } else if (strcmp("testMultiplyMatrixPtrA", argv[i]) == 0) {
             testMultiplyMatrixPtrA();
-        } else if (strcmp("testMultiplyMatrixPtrB", argv[i]) == 0) {
             testMultiplyMatrixPtrB();
-        } else if (strcmp("testMultiplyMatrixPtrC", argv[i]) == 0) {
             testMultiplyMatrixPtrC();
-        } else {
-            printf("ERROR: Incorrect test name %s\n", argv[i]);
-            exit(1);
-        }
-    }
-    
-    if (argc == 1) {
-        testStage1();
-        testStage2();
-        testStage3();
-    }
-    
     return 0;
 }

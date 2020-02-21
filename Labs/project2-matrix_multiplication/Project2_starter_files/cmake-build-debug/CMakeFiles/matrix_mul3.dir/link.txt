@@ -1,0 +1,1 @@
+/usr/bin/cc -g  -rdynamic CMakeFiles/matrix_mul3.dir/matrix_mul3.c.o  -o matrix_mul3 

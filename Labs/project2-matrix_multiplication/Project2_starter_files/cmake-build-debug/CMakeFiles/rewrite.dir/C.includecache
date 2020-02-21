@@ -1,0 +1,14 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/masaadkhan/Documents/312/Labs/project2-matrix_multiplication/Project2_starter_files/rewrite.c
+stdio.h
+-
+stdint.h
+-
+
