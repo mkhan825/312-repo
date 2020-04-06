@@ -1,0 +1,64 @@
+void unionInSet(Set* self, const Set* other) {
+    int i = 0;
+    int j = 0;
+    int count = 0;
+    int bigger = 0;
+    bool larger;
+    Set* inter = (Set*) malloc(sizeof(Set));
+    createEmptySet(inter);
+    inter->elements = (int*) malloc(sizeof(int)*100);
+    if(self->len > other->len) {
+       larger = true;
+       bigger = self->len;
+    } else {
+        larger = false;
+        bigger = other->len;
+    }
+    while((larger && i < bigger) || (!larger && j < bigger)) {
+        if(self->elements[i] > other->elements[j]) {
+            //check the next element, undetermined
+            inter->elements[count] = other->elements[j];
+            if(!(larger && (j == (other->len - 1)))) {
+                j++;
+            } else {
+                i++;
+            }
+            count++;
+        } else {
+            if (self->elements[i] < other->elements[j]) {
+                if(i == self->len - 1) {
+                    inter->elements[count] = other->elements[j];
+                } else {
+                    inter->elements[count] = self->elements[i];
+                }
+                if(!(!larger && (i == (self->len - 1)))) {
+                    i++;
+                } else {
+                    j++;
+                }
+                count++;
+            } else {
+                if(self->elements[i] == other->elements[j]) {
+                    // save elements
+                    inter->elements[count] = self->elements[i];
+                    if(!(larger && (j == (other->len - 1)))) {
+                        j++;
+                    } else {
+                        i++;
+                    }
+                    if(!(!larger && (i == (self->len - 1)))) {
+                        i++;
+                    } else {
+                        j++;
+                    }
+                    count++;
+                }
+            }
+        }
+    }
+    for(int k = 0; k < count; k++) {
+        self->elements[k] = inter->elements[k];
+    }
+    self->len = count;
+    destroySet(inter);
+}

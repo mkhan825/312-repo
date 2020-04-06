@@ -8,7 +8,7 @@ int** allocMatrix( int n, int m) {
     // Every element in our array will be a pointer
     // So far we have initialized all the rows in our matrix but now we want to intialize the columns
     for ( int i = 0; i < n; i ++) {
-        *(matrix + i) = malloc (m*sizeof(int)); // mi] = malloc(m*sizeof(int));
+        *(matrix + i) = malloc (m*sizeof(int)); // matrix[i] = malloc(m*sizeof(int));
         for (int j = 0; j < m; j++) {
             matrix[i][j] = rand() % 10; // *(m[i]+j)
         }

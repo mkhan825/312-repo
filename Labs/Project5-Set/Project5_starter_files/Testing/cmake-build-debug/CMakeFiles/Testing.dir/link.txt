@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/Testing.dir/checkingstuff.cpp.o  -o Testing 

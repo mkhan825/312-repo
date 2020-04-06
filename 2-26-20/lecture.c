@@ -51,6 +51,32 @@ void insertion(int *a, int len, int8_t (*comp)(int, int)) {
     }
 }
 
+void qsortHelp(int *a, int low, int high) {
+    if (low >= high) {
+        return;
+    }
+    int pivot = a[high];
+    int i = low-1;
+    for (int j = low; j <= high - 1; j++) {
+        if(a[j] < pivot) {
+            i++;
+            int t = a[i];
+            a[i] = a[j];
+            a[j] = t;
+        }
+    }
+    i++;
+    int t = a[i];
+    a[i] = pivot;
+    a[high] = t;
+    qsortHelp(a, low, i - 1);
+    qsortHelp(a, i + 1, high);
+}
+
+void quickSort(int *a, int len) {
+    qsortHelp(a, 0, len-1);
+}
+
 int main (void) {
     int a[LEN];
     arrayInit(a, LEN);

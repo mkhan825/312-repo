@@ -1,0 +1,16 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/masaadkhan/Documents/312/Labs/Project5-Set/Project5_starter_files/Testing/stringconv.c
+stdlib.h
+-
+string.h
+-
+stdio.h
+-
+

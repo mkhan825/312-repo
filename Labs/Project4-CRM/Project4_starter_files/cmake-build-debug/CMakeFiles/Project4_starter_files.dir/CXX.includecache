@@ -1,0 +1,26 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/masaadkhan/Documents/312/Labs/Project4-CRM/Project4_starter_files/Invent.h
+MyString.h
+/home/masaadkhan/Documents/312/Labs/Project4-CRM/Project4_starter_files/MyString.h
+
+/home/masaadkhan/Documents/312/Labs/Project4-CRM/Project4_starter_files/MyString.h
+
+/home/masaadkhan/Documents/312/Labs/Project4-CRM/Project4_starter_files/Project4.cpp
+stdio.h
+-
+assert.h
+-
+MyString.h
+/home/masaadkhan/Documents/312/Labs/Project4-CRM/Project4_starter_files/MyString.h
+Invent.h
+/home/masaadkhan/Documents/312/Labs/Project4-CRM/Project4_starter_files/Invent.h
+stdlib.h
+-
+
