@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/Project6_starter_files.dir/main.cpp.o CMakeFiles/Project6_starter_files.dir/Project6.cpp.o  -o Project6_starter_files 

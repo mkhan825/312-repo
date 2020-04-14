@@ -1,0 +1,1 @@
+/usr/bin/cc -g   CMakeFiles/Quiz_3.dir/quiz_3.c.o  -o Quiz_3 

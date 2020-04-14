@@ -1,0 +1,1 @@
+// There are 19 different operators in c++. For any class that you use, you can modify each operator to something new.

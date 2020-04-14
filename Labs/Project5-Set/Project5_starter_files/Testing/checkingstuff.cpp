@@ -60,6 +60,9 @@ void intersectFromSet(Set* self, const Set* other) {
 }
 
 void subtractFromSet(Set* self, const Set* other) {
+    if(self->len == 0 || other->len == 0) {
+        return;
+    }
     int i = 0;
     int j = 0;
     int count = 0;
@@ -70,11 +73,6 @@ void subtractFromSet(Set* self, const Set* other) {
         if(self->elements[i] > other->elements[j]) {
             //check the next element, undetermined
             j++;
-            if((i == self->len - 1) && (j == other->len)) {
-                inter->elements[count] = self->elements[i];
-                count++;
-                i++;
-            }
         } else {
             if (self->elements[i] < other->elements[j]) {
                 //save number
@@ -85,9 +83,15 @@ void subtractFromSet(Set* self, const Set* other) {
                 if(self->elements[i] == other->elements[j]) {
                     // don't save elements
                     i++;
+                    j++;
                 }
             }
         }
+    }
+    while(i < self->len) {
+        inter->elements[count] = self->elements[i];
+        i++;
+        count++;
     }
     for(int k = 0; k < count; k++) {
         self->elements[k] = inter->elements[k];
@@ -102,24 +106,39 @@ void unionInSet(Set* self, const Set* other) {
     int count = 0;
     Set* inter = (Set*) malloc(sizeof(Set));
     createEmptySet(inter);
-    inter->elements = (int*) malloc(sizeof(int)*100);
+    inter->len = self->len + other->len;
+    inter->elements = (int*) malloc(sizeof(int)*inter->len);
     while( (i < self->len) && (j < other->len) ) {
         if(self->elements[i] > other->elements[j]) {
             //check the next element, undetermined
+            inter->elements[count] = other->elements[j];
+            count++;
             j++;
         } else {
             if (self->elements[i] < other->elements[j]) {
+                inter->elements[count] = self->elements[i];
+                count++;
                 i++;
             } else {
                 if(self->elements[i] == other->elements[j]) {
                     // save elements
-                    i++;
-                    j++;
                     inter->elements[count] = self->elements[i];
                     count++;
+                    i++;
+                    j++;
                 }
             }
         }
+    }
+    while(i < self->len) {
+        inter->elements[count] = self->elements[i];
+        count++;
+        i++;
+    }
+    while(j < other->len) {
+        inter->elements[count] = other->elements[j];
+        count++;
+        j++;
     }
     for(int k = 0; k < count; k++) {
         self->elements[k] = inter->elements[k];
@@ -151,7 +170,7 @@ int main(void) {
     createEmptySet(setone);
     createEmptySet(settwo);
     setone->elements = (int*) malloc(sizeof(int) * 5);
-    settwo->elements = (int*) malloc(sizeof(int) * 3);
+    settwo->elements = (int*) malloc(sizeof(int) * 7);
     setone->len = 5;
     settwo->len = 7;
     for(int i = 0; i < 5; i++) {
@@ -162,7 +181,7 @@ int main(void) {
     }
     displaySet(setone);
     displaySet(settwo);
-    unionInSet(setone, settwo);
+    subtractFromSet(setone, settwo);
     displaySet(setone);
     free(setone);
     free(settwo);
