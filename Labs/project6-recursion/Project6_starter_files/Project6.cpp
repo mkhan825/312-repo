@@ -273,7 +273,7 @@ int strCompare2(char* str1, char* str2) {
  * for full credit, you must pick up all the bread crumbs EXCEPT those
  * along a path to the exit.
  */
-#define VISITED 3
+#define VISITED 2
 
 int CheckUp(int row, int col) {
     if(maze[row][col] == 1 || maze[row][col] == VISITED || row < 0) {
@@ -325,6 +325,7 @@ int solveMazeRec(int row, int col) {
     int done = 0;
     if(row == MATRIX_SIZE && col == MATRIX_SIZE-1) {
         //end case
+        maze[row][col] = VISITED;
         return 1;
     }
     if(!done) {
@@ -343,7 +344,7 @@ int solveMazeRec(int row, int col) {
         GoBack(row, col);
     }
     if(done) {
-        maze[row][col] = 2;
+        maze[row][col] = VISITED;
     }
     return done;
 }
@@ -478,62 +479,83 @@ void solveMazeIt(int row, int col) {
  * (fewest total coins) change for a given amount of money. Return a Martian struct that indicates
  * this optimal collection of coins.
  */
-
-int changeHelper(int cents, int pennies, int nicks, int dodeks, int vals[], int n, int smallest) {
-    //negative?
-    int first, second, third;
-    if(cents == 0) {
-        printf("Array: %d, %d, %d\n", vals[-3], vals[-2], vals[-1]);
-        printf("Smallest num: %d\n",n);
-        if(n < smallest) {
-            smallest = n;
-        }
-        return smallest;
-    }
-    if(cents - 12 >= 0) {
-        vals[0] = 12;
-        int first = changeHelper(cents - 12, pennies, nicks, dodeks + 1, vals+1, n + 1, smallest);
-    }
-    if(cents - 5 >= 0) {
-        vals[0] = 5;
-        int second = changeHelper(cents - 5, pennies, nicks + 1, dodeks, vals+1, n + 1, smallest);
-    }
-    if(cents - 1 >= 0) {
-        vals[0] = 1;
-        int third = changeHelper(cents - 1, pennies + 1, nicks, dodeks, vals+1, n + 1, smallest);
-    }
-    return ;//johnnytsunam
+int Pass(int passvalue) {
+    return passvalue;
 }
-
-Martian changeHelper2(int cents, int pennies, int nicks, int dodeks, int n) {
-    //negative?
-    Martian final;
-    if(cents == 0 && n == 0) {
-        final.dodeks = dodeks;
-        final.nicks = nicks;
-        final.pennies = pennies;
-        return final;
-    }
-    if(n < 0) {
-        // go back, wrong
-        return final;
-    }
-    if(cents - 12 >= 0) {
-        changeHelper2(cents - 12, pennies, nicks, dodeks + 1, n - 1);
-    }
-    if(cents - 5 >= 0) {
-        changeHelper2(cents - 5, pennies, nicks + 1, dodeks, n - 1);
-    }
-    if(cents - 1 >= 0) {
-        changeHelper2(cents - 1, pennies + 1, nicks, dodeks, n - 1);
-    }
+int sum(int initial, int second) {
+    initial = initial + second;
+    return initial;
 }
 
 Martian change(int cents) {
-    int vals[16];
-    int count = changeHelper(cents, 0 ,0 ,0, vals, 0, 100);
-    Martian final = changeHelper2(cents, 0 ,0 ,0, count);
-
+    Martian min;
+    int give = 0;
+    min.dodeks = 0;
+    min.pennies = 0;
+    min.nicks = 0;
+    if(cents <= 0) {
+        return min;
+    }
+    if(cents < 5) {
+        min.dodeks = 0;
+        min.nicks = 0;
+        min.pennies = cents;
+        return min;
+    }
+    if(cents >= 12) {
+        if(cents % 12 > 2 && cents % 5 <= 1) {
+            min.nicks = cents/5;
+            min.pennies = cents % 5;
+            cents = 0;
+            return min;
+        }
+        if(cents % 12 <= 2 && cents % 5 <= 1) {
+            min.dodeks = cents/12;
+            cents = cents % 12;
+            min.nicks = cents / 5;
+            cents = cents % 5;
+            min.pennies = cents;
+            cents = 0;
+            return min;
+        }
+        if(cents % 5 > 1) {
+            min.dodeks = cents/12;
+            cents = cents - min.dodeks*12;
+            if(cents % 12 >= 5) {
+                min.nicks = cents/5;
+                min.pennies = cents % 5;
+            } else {
+                min.pennies = cents % 12;
+            }
+            min.pennies = cents;
+            cents = 0;
+            return min;
+        }
+        if(cents%5 == 0 && (cents/5  < cents%12 + cents/12)) {
+            min.nicks = cents/5;
+            cents = 0;
+            return min;
+        } else if(cents % 5 == 0 && (cents%12 + cents/12 < cents/5)) {
+            min.dodeks = cents/12;
+            cents = cents % 12;
+            min.nicks = cents / 5;
+            cents = cents %5;
+            min.pennies = cents;
+            cents = 0;
+            return min;
+        }
+    }
+    if(cents >= 5 && cents < 12) {
+        min.nicks = sum(1, change(cents-5).nicks);
+        if(cents % 5 < 5) {
+            min.pennies = cents%5;
+            cents = 0;
+        }
+        return min;
+    }
+    if(cents >= 0) {
+        min.pennies = sum(cents, change(0).pennies);
+    }
 }
 
 /*
@@ -544,8 +566,89 @@ Martian change(int cents) {
  * If you've really mastered thinking recursively, then this version of the 
  * martian change problem is just as easy as the concrete version 
  */
+int mnum(int a, int b) {
+    if(b % a != 0) {
+        b++;
+        mnum(a,b);
+    } else {
+        return b;
+    }
+}
+
 Martian change(int cents, int nick_val, int dodek_val) {
-    return Martian{}; // delete this line, it's broken. Then write the function properly!
+    Martian min;
+    int use1 = mnum(nick_val, dodek_val);
+    min.dodeks = 0;
+    min.pennies = 0;
+    min.nicks = 0;
+    if(cents <= 0) {
+        return min;
+    }
+    if(cents < nick_val) {
+        min.dodeks = 0;
+        min.nicks = 0;
+        min.pennies = cents;
+        return min;
+    }
+    if(cents >= dodek_val) {
+        if(cents % dodek_val > (use1-dodek_val-1) && cents % nick_val <= (nick_val-use1-2)) {
+            min.nicks = cents/nick_val;
+            min.pennies = cents % nick_val;
+            cents = 0;
+            return min;
+        }
+        if(cents % dodek_val <= 2 && cents % nick_val <= 1) {
+            min.dodeks = cents/dodek_val;
+            cents = cents % dodek_val;
+            min.nicks = cents / nick_val;
+            cents = cents % nick_val;
+            min.pennies = cents;
+            cents = 0;
+            return min;
+        }
+        if(cents % nick_val > 1) {
+            min.dodeks = cents/dodek_val;
+            cents = cents % 12;
+            if(cents % dodek_val >= nick_val) {
+                min.nicks = cents/nick_val;
+                min.pennies = cents % nick_val;
+            }
+            min.pennies = cents;
+            cents = 0;
+            return min;
+        }
+        if(cents % 12 < 5) {
+            min.dodeks = cents / 12;
+            cents = cents % 12;
+            min.pennies = cents;
+            cents = 0;
+            return min;
+        }
+    }
+    if(cents >= nick_val && cents < dodek_val) {
+        min.nicks = sum(1, change(cents-nick_val).nicks);
+        if(cents % nick_val < nick_val) {
+            min.pennies = cents%nick_val;
+            cents = 0;
+        }
+        return min;
+    }
+    if(cents%nick_val == 0 && (cents/nick_val  < cents%dodek_val + cents/dodek_val)) {
+        min.nicks = cents/nick_val;
+        cents = 0;
+        return min;
+    } else if(cents % nick_val == 0 && (cents%dodek_val + cents/dodek_val < cents/nick_val)) {
+        min.dodeks = cents/dodek_val;
+        cents = cents % dodek_val;
+        min.nicks = cents / nick_val;
+        cents = cents %nick_val;
+        min.pennies = cents;
+        cents = 0;
+        return min;
+    }
+    if(cents >= 0) {
+        min.pennies = sum(cents, change(0).pennies);
+    }
 }
 
 /* 
